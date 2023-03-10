@@ -20,6 +20,15 @@
   import chart5 from "../assets/chart5.png";
   import chart6 from "../assets/chart6.png";
   import chart7 from "../assets/chart7.png";
+  import chart8 from "../assets/chart8.png";
+  import chart9 from "../assets/chart9.png";
+  import chart10 from "../assets/chart10.png";
+  import chart11 from "../assets/chart11.png";
+  import chart12 from "../assets/chart12.png";
+  import chart13 from "../assets/chart13.png";
+  import chart14 from "../assets/chart14.png";
+  import chart15 from "../assets/chart15.png";
+  import chart16 from "../assets/chart16.png";
   
   import SortableList from 'svelte-sortable-list';
   import Component from './Component.svelte';
@@ -255,6 +264,94 @@
     removeObject(7);
   }
 
+  function AddRegistrationTotal(){
+
+  }
+
+  function RemoveRegistrationTotal(){
+
+  }
+
+  function AddRegistrationPerDay(){
+
+  }
+
+  function RemoveRegistrationPerDay(){
+
+  }
+
+  function AddRegistrationDetails(){
+
+  }
+
+  function RemoveRegistrationDetails(){
+
+  }
+
+  function AddAllRegistrationCharts(){
+
+  }
+
+  function RemoveAllRegistrationCharts(){
+
+  }
+
+  function AddRegistrationTotalConfirmed(){
+
+  }
+
+  function RemoveRegistrationTotalConfirmed(){
+
+  }
+
+  function AddVisitorsTotal(){
+
+  }
+
+  function RemoveVisitorsTotal(){
+
+  }
+
+  function AddLoginPerDay(){
+
+  }
+
+  function RemoveLoginPerDay(){
+
+  }
+
+  function AddLoginPerDayUnique(){
+
+  }
+
+  function RemoveLoginPerDayUnique(){
+
+  }
+
+  function AddVisitorsGlobal(){
+
+  }
+
+  function RemoveVisitorsGlobal(){
+
+  }
+
+  function AddVisitorsRegional(){
+
+  }
+
+  function RemoveVisitorsRegional(){
+
+  }
+
+  function AddAllRegistrationLoginCharts(){
+
+  }
+
+  function RemoveAllRegistrationLoginCharts(){
+
+  }
+
   function ActivationActionAlert(action) {
     if (action == "kpi") {
       alertKPIs = true;
@@ -372,6 +469,36 @@
             <TabItem title="Registration">
               <Tabs>
                 <TabItem title="Registration">
+                  <div>
+                    {#if dropDownCounterRegister == 1}
+                      <img src={chart8} alt="Chart 8" />
+                      <div>
+                        <P>Total registration</P>
+                        <Button color="green" on:click={AddRegistrationTotal}>Enable</Button>
+                        <Button color="red" on:click={RemoveRegistrationTotal}>Disable</Button>
+                      </div>
+                    {:else if dropDownCounterRegister == 2}
+                      <img src={chart9} alt="Chart 9" />
+                      <div>
+                        <P>Total registration per day</P>
+                        <Button color="green" on:click={AddRegistrationPerDay}>Enable</Button>
+                        <Button color="red" on:click={RemoveRegistrationPerDay}>Disable</Button>
+                      </div>
+                    {:else if dropDownCounterRegister == 3}
+                      <img src={chart10} alt="Chart 10" />
+                      <div>
+                        <P>Registration details</P>
+                        <Button color="green" on:click={AddRegistrationDetails}>Enable</Button>
+                        <Button color="red" on:click={RemoveRegistrationDetails}>Disable</Button>
+                      </div>
+                    {:else if dropDownCounterRegister == 4}
+                      <div>
+                        <P>All registration charts</P>
+                        <Button color="green" on:click={AddAllRegistrationCharts}>Enable</Button>
+                        <Button color="red" on:click={RemoveAllRegistrationCharts}>Disable</Button>
+                      </div>
+                    {/if}
+                  </div>
                   <Button><Chevron>Charts</Chevron></Button>
                   <Dropdown>
                     <DropdownItem on:click={() => (dropDownCounterRegister = 1)}
@@ -390,6 +517,57 @@
                 </TabItem>
 
                 <TabItem title="Registration & Logins">
+                  <div>
+                    {#if dropDownCounterRegisterLogin == 1}
+                      <img src={chart11} alt="Chart 11" />
+                      <div>
+                        <P>Total registration (Total Confirmed)</P>
+                        <Button color="green" on:click={AddRegistrationTotalConfirmed}>Enable</Button>
+                        <Button color="red" on:click={RemoveRegistrationTotalConfirmed}>Disable</Button>
+                      </div>
+                    {:else if dropDownCounterRegisterLogin == 2}
+                      <img src={chart12} alt="Chart 12" />
+                      <div>
+                        <P>Visitors (Total)</P>
+                        <Button color="green" on:click={AddVisitorsTotal}>Enable</Button>
+                        <Button color="red" on:click={RemoveVisitorsTotal}>Disable</Button>
+                      </div>
+                    {:else if dropDownCounterRegisterLogin == 3}
+                      <img src={chart13} alt="Chart 13" />
+                      <div>
+                        <P>Logins per day (Total)</P>
+                        <Button color="green" on:click={AddLoginPerDay}>Enable</Button>
+                        <Button color="red" on:click={RemoveLoginPerDay}>Disable</Button>
+                      </div>
+                    {:else if dropDownCounterRegisterLogin == 4}
+                      <img src={chart14} alt="Chart 14" />
+                      <div>
+                        <P>Logins per day (Unique user)</P>
+                        <Button color="green" on:click={AddLoginPerDayUnique}>Enable</Button>
+                        <Button color="red" on:click={RemoveLoginPerDayUnique}>Disable</Button>
+                      </div>
+                    {:else if dropDownCounterRegisterLogin == 5}
+                      <img src={chart15} alt="Chart 15" />
+                      <div>
+                        <P>Visitors - Global</P>
+                        <Button color="green" on:click={AddVisitorsRegional}>Enable</Button>
+                        <Button color="red" on:click={RemoveVisitorsRegional}>Disable</Button>
+                      </div>
+                    {:else if dropDownCounterRegisterLogin == 6}
+                      <img src={chart16} alt="Chart 16" />
+                      <div>
+                        <P>Visitors - Regional</P>
+                        <Button color="green" on:click={AddVisitorsGlobal}>Enable</Button>
+                        <Button color="red" on:click={RemoveVisitorsGlobal}>Disable</Button>
+                      </div>
+                    {:else if dropDownCounterRegisterLogin == 7}
+                      <div>
+                        <P>All Registration & Logins charts</P>
+                        <Button color="green" on:click={AddAllRegistrationLoginCharts}>Enable</Button>
+                        <Button color="red" on:click={RemoveAllRegistrationLoginCharts}>Disable</Button>
+                      </div>
+                    {/if}
+                  </div>
                   <Button><Chevron>Charts</Chevron></Button>
                   <Dropdown>
                     <DropdownItem
@@ -410,10 +588,14 @@
                     >
                     <DropdownItem
                       on:click={() => (dropDownCounterRegisterLogin = 5)}
-                      >Visitors - Global / Regional</DropdownItem
+                      >Visitors - Global </DropdownItem
                     >
                     <DropdownItem
-                      on:click={() => (dropDownCounterRegisterLogin = 4)}
+                      on:click={() => (dropDownCounterRegisterLogin = 6)}
+                      >Visitors - Regional</DropdownItem
+                    >
+                    <DropdownItem
+                      on:click={() => (dropDownCounterRegisterLogin = 7)}
                       >All registration & login charts</DropdownItem
                     >
                   </Dropdown>
