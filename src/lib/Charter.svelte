@@ -26,20 +26,6 @@
 
   let sleepTime = 2000;
   let dropDownCounter = 0;
-  let dropDownCounterRegister = 0;
-  let dropDownCounterRegisterLogin = 0;
-  let dropDownCounterEvent1 = 0;
-  let dropDownCounterEvent2 = 0;
-  let dropDownCounterEvent3 = 0;
-
-  let checkboxKPIs = false;
-  let checkboxBoothVisitsOverTime = false;
-  let checkboxBoothVisits = false;
-  let checkboxVideoViews = false;
-  let checkboxDownloads = false;
-  let checkboxBoothChats = false;
-  let checkboxVideochatsPerBooth = false;
-  let checkboxAll = false;
   let display = false;
   let checkCopy = false;
   let dataSaved = false;
@@ -55,7 +41,6 @@
   let alertNone = false;
 
   let alertDeactivationAll = false;
-  let alertDeactivationNone = false;
   let alertDeactivationKPIs = false;
   let alertDeactivationBoothVisitsOverTime = false;
   let alertDeactivationBoothVisits = false;
@@ -63,6 +48,13 @@
   let alertDeactivationDownloads = false;
   let alertDeactivationBoothChats = false;
   let alertDeactivationVideochatsPerBooth = false;
+
+  let dropDownCounterRegister = 0;
+  let dropDownCounterEvent1 = 0;
+  let dropDownCounterEvent2 = 0;
+  let dropDownCounterEvent3 = 0;
+  let dropDownCounterRegisterLogin = 0;
+
 
   let language = "EN";
   let eventId = 0;
@@ -84,11 +76,6 @@
   let videoChatsPerBoothXML = "";
 
   let valueProgressbar = "0";
-
-  let finalXML_list = [
-    {id:0, name: "test", content: "test"},
-    {id:100, name: "test2", content: "test2"}
-  ];
 
   let list = [];
 
@@ -155,119 +142,91 @@
 
   function resetData() {
     finalXML = "";
-    checkboxKPIs = false;
-    checkboxBoothVisitsOverTime = false;
-    checkboxBoothVisits = false;
-    checkboxVideoViews = false;
-    checkboxDownloads = false;
-    checkboxBoothChats = false;
-    checkboxVideochatsPerBooth = false;
-    checkCopy = false;
     display = false;
+    list = [];
   }
 
   function AddKPIs() {
-    checkboxKPIs = true;
     ActivationActionAlert("kpi");
     kpiXML = `<chart  title='KPIs'  query='select count(userid), email, sum(duration) where docid contains "doc:${boothId}"   and not email contains "meetyoo" and not email contains "ubivent"   group by email| select count($1), sum($2), sum($2)/count($1)/60 Label count($1) "Unique visitors", sum($2)/count($1)/60 "Avg Duration in(m)", sum($2) "Total visits duration"' type='Gauge' table='boothvisits' ></chart>`;
     addObject({id: 1, name: "KPIs", content: kpiXML, image: chart1});
   }
 
   function RemoveKPIs() {
-    checkboxKPIs = false;
     DeactivationActionAlert("kpi");
     removeObject(1);
   }
 
   function AddBoothVisitsOverTime() {
-    checkboxBoothVisitsOverTime = true;
     ActivationActionAlert("boothVisitsOverTime");
     boothVisitsOverTimeXML = `<chart  title='Booth visits over time'  query='select toDate(time), count(userid) where docid contains "doc:${boothId}"   and not email contains "meetyoo" and not email contains "ubivent"    group by toDate(time) order by toDate(time) | accumulate $1' type='AnnotationChart' table='boothvisits' ></chart>`;
     addObject({id:2, name: "Booth Visits Over Time", content:boothVisitsOverTimeXML, image: chart2});
   }
 
   function RemoveBoothVisitsOverTime() {
-    checkboxBoothVisitsOverTime = false;
     DeactivationActionAlert("boothVisitsOverTime");
     removeObject(2);
   }
 
   function AddBoothVisits() {
-    checkboxBoothVisits = true;
     ActivationActionAlert("boothVisits");
     boothVisitsXML = `<chart  title='Booth Visits'  query='select firstname, lastname, email,   sum(duration) where docid contains "doc:${boothId}"   and not email contains "meetyoo" and not email contains "ubivent" and  =  group by email, firstname, lastname  LABEL sum(duration) "Duration (in sec)"  | replace $2 ${prefix} type='ubiventCharts.TableWithLinks' table='boothvisits' ></chart>`;
     addObject({id:3, name: "Booth Visits", content:boothVisitsXML, image: chart3});
   }
 
   function RemoveBoothVisits() {
-    checkboxBoothVisits = false;
     boothVisitsXML = "";
     DeactivationActionAlert("boothVisits");
     removeObject(3);
   }
 
   function AddVideoViews() {
-    checkboxVideoViews = true;
     ActivationActionAlert("videoViews");
     videoViewsXML = `<chart  title='Video Views'  query='select firstname, lastname, email,    videoname, sum(duration) where docid contains "doc:${boothId}"   and not email contains "meetyoo" and not email contains "ubivent" and  =  group by firstname, lastname, email, videoname  LABEL sum(duration) "Duration (in sec)"    | replace $2 ${prefix} type='ubiventCharts.TableWithLinks' table='video' ></chart>`;
     addObject({id:4, name: "Video Views", content:videoViewsXML, image: chart4});
   }
 
   function RemoveVideoViews() {
-    checkboxVideoViews = false;
     videoViewsXML = "";
     DeactivationActionAlert("videoViews");
     removeObject(4);
   }
 
   function AddDownloads() {
-    checkboxDownloads = true;
     ActivationActionAlert("downloads");
     downloadsXML = `<chart  title='Downloads'  query='select firstname, lastname, email,    filename, sum(duration) where docid contains "doc:${boothId}"   and not email contains "meetyoo" and not email contains "ubivent" and  =  group by firstname, lastname, email, filename  LABEL sum(duration) "Duration (in sec)"    | replace $2 ${prefix} type='ubiventCharts.TableWithLinks' table='downloads' ></chart>`;
     addObject({id:5, name: "Downloads", content:downloadsXML, image: chart5});
   }
 
   function RemoveDownloads() {
-    checkboxDownloads = false;
     DeactivationActionAlert("downloads");
     removeObject(5);
   }
 
   function AddBoothChats() {
-    checkboxBoothChats = true;
     ActivationActionAlert("boothChats");
     boothChatsXML = `<chart  title='Booth Chats'  query='select firstname, lastname, email,    sum(duration) where docid contains "doc:${boothId}"   and not email contains "meetyoo" and not email contains "ubivent" and  =  group by firstname, lastname, email  LABEL sum(duration) "Duration (in sec)"    | replace $2 ${prefix} type='ubiventCharts.TableWithLinks' table='boothchats' ></chart>`;
     addObject({id:6, name: "Booth Chats", content:boothChatsXML, image: chart6});
   }
 
   function RemoveBoothChats() {
-    checkboxBoothChats = false;
     DeactivationActionAlert("boothChats");
     removeObject(6);
   }
 
   function AddVideochatsPerBooth() {
-    checkboxVideochatsPerBooth = true;
     ActivationActionAlert("videochatsPerBooth");
     videoChatsPerBoothXML = `<chart  title='Videochats per booth'  query='select firstname, lastname, email,    sum(duration) where docid contains "doc:${boothId}"   and not email contains "meetyoo" and not email contains "ubivent" and  =  group by firstname, lastname, email  LABEL sum(duration) "Duration (in sec)"    | replace $2 ${prefix} type='ubiventCharts.TableWithLinks' table='videochats' ></chart>`;
     addObject({id:7, name: "Videochats per booth", content:videoChatsPerBoothXML, image: chart7});
   }
 
   function RemoveVideochatsPerBooth() {
-    checkboxVideochatsPerBooth = false;
     videoChatsPerBoothXML = "";
     DeactivationActionAlert("videochatsPerBooth");
     removeObject(7);
   }
 
   function AddAll() {
-    checkboxKPIs = true;
-    checkboxBoothVisitsOverTime = true;
-    checkboxBoothVisits = true;
-    checkboxVideoViews = true;
-    checkboxDownloads = true;
-    checkboxBoothChats = true;
-    checkboxVideochatsPerBooth = true;
     ActivationActionAlert("all");
     kpiXML = `<chart  title='KPIs'  query='select firstname, lastname, email,   sum(duration) where docid contains "doc:${boothId}"   and not email contains "meetyoo" and not email contains "ubivent" and  =  group by email, firstname, lastname  LABEL sum(duration) "Duration (in sec)"  | replace $2 ${prefix} type='ubiventCharts.TableWithLinks' table='boothvisits' ></chart>`;
     boothVisitsOverTimeXML = `<chart  title='Booth Visits Over Time'  query='select firstname, lastname, email,   sum(duration) where docid contains "doc:${boothId}"   and not email contains "meetyoo" and not email contains "ubivent" and  =  group by email, firstname, lastname  LABEL sum(duration) "Duration (in sec)"  | replace $2 ${prefix} type='ubiventCharts.TableWithLinks' table='boothvisits' ></chart>`;
@@ -286,13 +245,6 @@
   }
 
   function RemoveAll() {
-    checkboxKPIs = false;
-    checkboxBoothVisitsOverTime = false;
-    checkboxBoothVisits = false;
-    checkboxVideoViews = false;
-    checkboxDownloads = false;
-    checkboxBoothChats = false;
-    checkboxVideochatsPerBooth = false;
     DeactivationActionAlert("all");
     removeObject(1);
     removeObject(2);
@@ -342,8 +294,6 @@
       alertDeactivationVideochatsPerBooth = true;
     } else if (action == "all") {
       alertDeactivationAll = true;
-    } else if (action == "none") {
-      alertDeactivationNone = true;
     }
   }
 
